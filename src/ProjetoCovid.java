@@ -1,4 +1,5 @@
 import CSV.CSVReader;
+import algoritmos.SelectionSort;
 import dataBase.CovidBase;
 import tools.Paths;
 
@@ -20,7 +21,7 @@ public class ProjetoCovid {
 
         //Ordenação crescente por quantidade acumulada de óbitos;
         long tempoInicial = System.currentTimeMillis();
-
+        SelectionSort.orderAvailableDeaths(dados, SelectionSort.INCREASE);
 
         System.out.println("o método executou em: " + (System.currentTimeMillis() - tempoInicial));
         //Ordenação crescente por quantidade acumulada de casos;

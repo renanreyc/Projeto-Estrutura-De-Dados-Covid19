@@ -81,6 +81,18 @@ public class CovidBase {
         return CSVLine.split(",");
     }
 
+    public int getAvailableConfirmed() {
+        return availableConfirmed;
+    }
+
+    public int getAvailableDeaths() {
+        return availableDeaths;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
     @Override
     public String toString() {
         return "CovidBase{" +
