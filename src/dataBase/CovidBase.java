@@ -93,6 +93,58 @@ public class CovidBase {
         return city;
     }
 
+    public String getYearWeek() {
+        return yearWeek;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getOrderForPlace() {
+        return orderForPlace;
+    }
+
+    public String getIbgeCode() {
+        return ibgeCode;
+    }
+
+    public String getPlaceType() {
+        return placeType;
+    }
+
+    public double getAvailableConfirmedPer100K() {
+        return availableConfirmedPer100K;
+    }
+
+    public int getNewConfirmed() {
+        return newConfirmed;
+    }
+
+    public int getNewDeaths() {
+        return newDeaths;
+    }
+
+    public double getLastAvailableDeathRate() {
+        return lastAvailableDeathRate;
+    }
+
+    public int getEstimatedPopulation() {
+        return estimatedPopulation;
+    }
+
+    public boolean isLast() {
+        return isLast;
+    }
+
+    public boolean isRepeated() {
+        return isRepeated;
+    }
+
     @Override
     public String toString() {
         return "CovidBase{" +

@@ -1,4 +1,5 @@
 import CSV.CSVReader;
+import CSV.CSVWriter;
 import algoritmos.SelectionSort;
 import dataBase.CovidBase;
 import tools.Paths;
@@ -10,10 +11,21 @@ public class ProjetoCovid {
         String pathDataBase = "C:\\DOWNLOAD\\dataBase";
         String pathNewFiles = "C:\\DOWNLOAD\\newFiles";
 
-        Vector<CovidBase> dados;
-        dados = CSVReader.readerData(Paths.path_data.replace("{0}",pathDataBase));
+        criarMelhorEPiorCaso(pathDataBase,pathNewFiles);
 
-        analiseSelectionSort(dados,pathDataBase,pathNewFiles);
+//        analiseSelectionSort(dados,pathDataBase,pathNewFiles);
+    }
+
+    public static void criarMelhorEPiorCaso(String oldPath, String newPath) {
+        Vector<CovidBase> dados;
+        dados = CSVReader.readerData(Paths.path_data.replace("{0}",oldPath));
+
+        //Médio - Obito
+        CSVWriter.csvWriter(dados,newPath,
+                "epidemiological_week,date,order_for_place,state,city,city_ibge_code," +
+                "place_type,last_available_confirmed,last_available_confirmed_per_100k_inhabitants," +
+                "new_confirmed,last_available_deaths,new_deaths,last_available_death_rate,estimated_population," +
+                "is_last,is_repeated\n");
     }
 
     public static void analiseSelectionSort(Vector dados,String pathDataBase, String pathNewFiles){
