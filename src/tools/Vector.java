@@ -3,46 +3,79 @@ package tools;
 import java.util.Arrays;
 
 public class Vector<T> {
-    private T[] elementos;
-    private int tamanho, capacidade;
+
+    private int size;
+    private int capacity;
+    private T[] elements;
 
     public Vector(int capacity) throws IllegalArgumentException {
-        if (capacity <= 0) throw new IllegalArgumentException("O tamanho deve ser maior que 0. Tamanho inválido.");
-        this.tamanho = 0;
-        this.capacidade = capacity;
-        this.instanciarElemento(capacidade);
-    }
-
-    public void insert(T element, int posicao) throws ArrayIndexOutOfBoundsException {
-        if (posicao < 0) throw new ArrayIndexOutOfBoundsException("Index Inválido.");
-        if (posicao > this.capacidade) throw new ArrayIndexOutOfBoundsException ("posição do index maior que a capacidade. Index Inválido");
-        this.elementos[posicao] = element;
+        if (capacity <= 0) throw new IllegalArgumentException("Invalid amount, must be > 0.");
+        this.size = 0;
+        this.capacity = capacity;
+        this.instantiateElements(capacity);
     }
 
     @SuppressWarnings("unchecked")
-    private void instanciarElemento(int capacidade) {
-        this.elementos = (T[]) new Object[capacidade];
+    private void instantiateElements(int capacity) {
+        this.elements = (T[]) new Object[capacity];
     }
 
-    public T encontrarIndex(int index) throws ArrayIndexOutOfBoundsException {
-        if(index < 0 || index > this.capacidade) throw new ArrayIndexOutOfBoundsException("Index Inválido.");
-        return elementos[index];
+    private void updateCapacity() {
+        this.capacity = this.elements.length;
     }
 
-    public int getTamanho() {
-        return tamanho;
+    @SuppressWarnings("unchecked")
+    private void increaseSize() {
+        if (this.size == this.capacity) {
+            T[] newElements = (T[]) new Object[this.capacity * 2];
+            for (int i = 0; i < this.size; i++) {
+                newElements[i] = this.elements[i];
+            }
+            this.elements = newElements;
+        }
+        updateCapacity();
     }
 
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
+    public void add(T element) {
+        increaseSize();
+        if (this.size < this.capacity) {
+            this.elements[this.size++] = element;
+        }
+    }
+
+    public void add(T element, int position) throws ArrayIndexOutOfBoundsException {
+        if(position < 0) throw new ArrayIndexOutOfBoundsException("Invalid index.");
+        if(position > this.size) throw new ArrayIndexOutOfBoundsException("Invalid index, if you want insert a element in the last position use method add without position.");
+        increaseSize();
+        for (int currentPosition = this.size -1 ; currentPosition >= position; currentPosition--) {
+            this.elements[currentPosition + 1] = this.elements[currentPosition];
+        }
+        this.elements[position] = element;
+        this.size++;
+    }
+
+
+    public T findWithIndex(int index) throws ArrayIndexOutOfBoundsException {
+        if(index < 0 || index > this.capacity) throw new ArrayIndexOutOfBoundsException("Invalid index.");
+        return elements[index];
+    }
+
+    public void insert(T element, int position) throws ArrayIndexOutOfBoundsException {
+        if(position < 0) throw new ArrayIndexOutOfBoundsException("Invalid index.");
+        if(position > this.capacity) throw new ArrayIndexOutOfBoundsException("Invalid index, if you want insert a element in the last position use method add without position.");
+        this.elements[position] = element;
+    }
+
+    public void setSize() {
+        this.size = this.capacity;
+    }
+
+    public int size() {
+        return this.size;
     }
 
     @Override
     public String toString() {
-        return "Vector{" +
-                "elementos=" + Arrays.toString(elementos) +
-                ", tamanho=" + tamanho +
-                ", capacidade=" + capacidade +
-                '}';
+        return Arrays.toString(this.elements);
     }
 }

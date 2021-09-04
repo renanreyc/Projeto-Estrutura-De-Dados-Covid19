@@ -1,6 +1,6 @@
-package CSV;
+package csv;
 
-import dataBase.CovidBase;
+import tools.CovidData;
 import tools.Vector;
 
 import java.io.BufferedWriter;
@@ -9,26 +9,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CSVWriter {
-    public static void csvWriter(Vector<CovidBase> data, String pathNewFiles, String cabecalho) {
+    public static void escreverDados(Vector<CovidData> dados, String caminhoParaSalvar, String cabecalho) {
         try {
-            File file = new File(pathNewFiles);
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(cabecalho);
+            File arquivo = new File(caminhoParaSalvar);
+            FileWriter fileWriter = new FileWriter(arquivo);
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+            writer.write(cabecalho);
 
-            for (int i = 0; i < data.getTamanho(); i++) {
-                String joinLineCovidBase = CSVWriter.joinLineCovidBase(data.encontrarIndex(i));
-                bufferedWriter.write(joinLineCovidBase);
+            for(int i = 0; i < dados.size(); i++) {
+                String covidDataEmString = CSVWriter.juntarDadosEFormatar(dados.findWithIndex(i));
+                writer.write(covidDataEmString);
             }
-            bufferedWriter.close();
+            writer.close();
             fileWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException error) {
+            System.err.println("Erro ao escrever linha.");
         }
     }
 
-    public static String joinLineCovidBase(CovidBase data) {
+    private static String juntarDadosEFormatar(CovidData data) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(data.getYearWeek() + ",");
         stringBuilder.append(data.getDate() + ",");
@@ -49,4 +48,5 @@ public class CSVWriter {
 
         return stringBuilder.toString();
     }
+
 }

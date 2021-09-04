@@ -1,6 +1,6 @@
-package dataBase;
+package tools;
 
-public class CovidBase {
+public class CovidData {
 
     private String yearWeek;
     private String date;
@@ -36,15 +36,13 @@ public class CovidBase {
     private final int isLastId = 14;
     private final int isRepeatedId = 15;
 
-    public CovidBase() {
-    }
-    public CovidBase(String CSVLine){
-        this.setData(CSVLine);
+    public CovidData() {}
+    public CovidData(String CVSLine) {
+        this.setarAtributos(CVSLine);
     }
 
-    private void setData(String CSVLine) {
+    private void setarAtributos(String CSVLine) {
         String[] columns = separarColunas(CSVLine);
-
         this.yearWeek = columns[yearWeekId];
         this.date = columns[dateId];
         this.orderForPlace = columns[orderForPlaceId];
@@ -59,6 +57,8 @@ public class CovidBase {
         this.newDeaths = convertToInt(columns[newDeathsId]);
         this.lastAvailableDeathRate = convertToDouble(columns[lastAvailableDeathRateId]);
         this.estimatedPopulation = convertToInt(columns[estimatedPopulationId]);
+        for (int i = 0; i >= columns.length;i++)
+            System.out.println(columns);
     }
 
     private int convertToInt(String text){
@@ -80,6 +80,7 @@ public class CovidBase {
     private String[] separarColunas(String CSVLine){
         return CSVLine.split(",");
     }
+
 
     public int getAvailableConfirmed() {
         return availableConfirmed;
@@ -143,6 +144,18 @@ public class CovidBase {
 
     public boolean isRepeated() {
         return isRepeated;
+    }
+
+    public void setAvailableDeaths(int availableDeaths) {
+        this.availableDeaths = availableDeaths;
+    }
+
+    public void setAvailableConfirmed(int availableConfirmed) {
+        this.availableConfirmed = availableConfirmed;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override
