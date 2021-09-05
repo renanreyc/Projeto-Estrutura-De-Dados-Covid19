@@ -5,65 +5,74 @@ import tools.Vetor;
 
 public class CountingSort {
 
-    public static Vetor<DataBase> ordenarPorCasos(Vetor<DataBase> originalVetor) {
-        Vetor<DataBase> exitVetor = new Vetor<DataBase>(originalVetor.getTamanho());
-        exitVetor.setTamanho();
+    public static Vetor<DataBase> ordenarPorCasosConfirmados(Vetor<DataBase> originalVetor) {
+        Vetor<DataBase> arrayDeSaida = new Vetor<>(originalVetor.getTamanho());
+        arrayDeSaida.setTamanho();
 
-        int numberMaximum = findMaximumNumberCasos(originalVetor);
-        int[] vectorOfPositionsInExitVector = new int[numberMaximum + 1];
+        //encontrar o maior valor do array
+        int numeroMaximo = maiorValorCasosConfirmados(originalVetor);
+        int[] vectorDePosicaoDeSaida = new int[numeroMaximo + 1];
 
+        //contar cada número possível do array original
         for (int i = 0; i < originalVetor.getTamanho(); i++) {
-            vectorOfPositionsInExitVector[originalVetor.encontrarElemento(i).getAvailableConfirmed()] += 1;
+            vectorDePosicaoDeSaida[originalVetor.encontrarElemento(i).getAvailableConfirmed()] += 1;
         }
 
-        for (int i = 1; i <= numberMaximum; i++) {
-            vectorOfPositionsInExitVector[i] += vectorOfPositionsInExitVector[i - 1];
+        //posicionar cada número possível na saída do array de posição
+        for (int i = 1; i <= numeroMaximo; i++) {
+            vectorDePosicaoDeSaida[i] += vectorDePosicaoDeSaida[i - 1];
         }
 
-        for(int i = originalVetor.getTamanho() - 1; i >= 0; i--) {
-            exitVetor.inserirElemento(originalVetor.encontrarElemento(i), vectorOfPositionsInExitVector[originalVetor.encontrarElemento(i).getAvailableConfirmed()] - 1);
-            vectorOfPositionsInExitVector[originalVetor.encontrarElemento(i).getAvailableConfirmed()] -= 1;
+        for (int i = originalVetor.getTamanho() - 1; i >= 0; i--) {
+            arrayDeSaida.inserirElemento(originalVetor.encontrarElemento(i), vectorDePosicaoDeSaida[originalVetor.encontrarElemento(i).getAvailableConfirmed()] - 1);
+            vectorDePosicaoDeSaida[originalVetor.encontrarElemento(i).getAvailableConfirmed()] -= 1;
         }
-        return exitVetor;
+        return arrayDeSaida;
     }
 
-    public static Vetor<DataBase> ordenarPorObitos(Vetor<DataBase> originalVetor) {
-        Vetor<DataBase> exitVetor = new Vetor<DataBase>(originalVetor.getTamanho());
-        exitVetor.setTamanho();
+    public static Vetor<DataBase> ordenarPorObitosConfirmados(Vetor<DataBase> originalVetor) {
+        Vetor<DataBase> arrayDeSaida = new Vetor<>(originalVetor.getTamanho());
+        arrayDeSaida.setTamanho();
 
-        int numberMaximum = findMaximumNumberObitos(originalVetor);
-        int[] vectorOfPositionsInExitVector = new int[numberMaximum + 1];
+        //encontrar o maior valor do array
+        int numeroMaximo = maiorValorObitosConfirmados(originalVetor);
+        int[] vectorDePosicaoDeSaida = new int[numeroMaximo + 1];
 
+        //contar cada número possível do array original
         for (int i = 0; i < originalVetor.getTamanho(); i++) {
-            vectorOfPositionsInExitVector[originalVetor.encontrarElemento(i).getAvailableDeaths()] += 1;
+            vectorDePosicaoDeSaida[originalVetor.encontrarElemento(i).getAvailableDeaths()] += 1;
         }
 
-        for (int i = 1; i <= numberMaximum; i++) {
-            vectorOfPositionsInExitVector[i] += vectorOfPositionsInExitVector[i - 1];
+        //posicionar cada número possível na saída do array de posição
+        for (int i = 1; i <= numeroMaximo; i++) {
+            vectorDePosicaoDeSaida[i] += vectorDePosicaoDeSaida[i - 1];
         }
 
-        for(int i = originalVetor.getTamanho() - 1; i >= 0; i--) {
-            exitVetor.inserirElemento(originalVetor.encontrarElemento(i), vectorOfPositionsInExitVector[originalVetor.encontrarElemento(i).getAvailableDeaths()] - 1);
-            vectorOfPositionsInExitVector[originalVetor.encontrarElemento(i).getAvailableDeaths()] -= 1;
+        for (int i = originalVetor.getTamanho() - 1; i >= 0; i--) {
+            arrayDeSaida.inserirElemento(originalVetor.encontrarElemento(i), vectorDePosicaoDeSaida[originalVetor.encontrarElemento(i).getAvailableDeaths()] - 1);
+            vectorDePosicaoDeSaida[originalVetor.encontrarElemento(i).getAvailableDeaths()] -= 1;
         }
-        return exitVetor;
+        return arrayDeSaida;
     }
 
-
-    private static int findMaximumNumberObitos(Vetor<DataBase> vetor) {
-        int numberMaximum = 0;
+    private static int maiorValorCasosConfirmados(Vetor<DataBase> vetor) {
+        int numeroMaximo = 0;
         for (int i = 0; i < vetor.getTamanho(); i++) {
-            if(vetor.encontrarElemento(i).getAvailableDeaths() > numberMaximum) numberMaximum = vetor.encontrarElemento(i).getAvailableDeaths();
+            if (vetor.encontrarElemento(i).getAvailableConfirmed() > numeroMaximo) {
+                numeroMaximo = vetor.encontrarElemento(i).getAvailableConfirmed();
+            }
         }
-        return numberMaximum;
+        return numeroMaximo;
     }
 
-    private static int findMaximumNumberCasos(Vetor<DataBase> vetor) {
-        int numberMaximum = 0;
+    private static int maiorValorObitosConfirmados(Vetor<DataBase> vetor) {
+        int numeroMaximo = 0;
         for (int i = 0; i < vetor.getTamanho(); i++) {
-            if(vetor.encontrarElemento(i).getAvailableConfirmed() > numberMaximum) numberMaximum = vetor.encontrarElemento(i).getAvailableConfirmed();
+            if (vetor.encontrarElemento(i).getAvailableDeaths() > numeroMaximo){
+                numeroMaximo = vetor.encontrarElemento(i).getAvailableDeaths();
+            }
         }
-        return numberMaximum;
+        return numeroMaximo;
     }
 
 }

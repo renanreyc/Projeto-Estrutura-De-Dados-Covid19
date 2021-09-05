@@ -7,79 +7,76 @@ import java.text.Collator;
 
 public class QuickSort {
 
-    public static final int OBITOS = 0;
-    public static final int CASOS = 1;
+    public static final int CASOS = 0;
+    public static final int OBITOS = 1;
     public static final int CIDADES = 2;
 
-    public static void sort(Vetor<DataBase> vetor, int start, int end, int type) {
-        if(hasMoreElements(start, end)) {
+    public static void quickSort(Vetor<DataBase> vetor, int inicio, int fim, int indicador) {
+        if (inicio < fim) {
             int pivotIndex = 0;
-            switch (type) {
-                case OBITOS:
-                    pivotIndex = particionaObitos(vetor, start, end);
-                    break;
+            switch (indicador) {
                 case CASOS:
-                    pivotIndex = particionaCasos(vetor, start, end);
+                    pivotIndex = particionaCasos(vetor, inicio, fim);
+                    break;
+                case OBITOS:
+                    pivotIndex = particionaObitos(vetor, inicio, fim);
                     break;
                 case CIDADES:
-                    pivotIndex = particionaCidades(vetor, start, end);
+                    pivotIndex = particionaCidades(vetor, inicio, fim);
                     break;
             }
-            sort(vetor, start, pivotIndex - 1, type);
-            sort(vetor, pivotIndex + 1, end, type);
+            quickSort(vetor, inicio, pivotIndex - 1, indicador);
+            quickSort(vetor, pivotIndex + 1, fim, indicador);
         }
     }
 
-    public static int particionaObitos(Vetor<DataBase> vetor, int start, int end) {
-        int pivot = vetor.encontrarElemento(end).getAvailableDeaths();
-        int smallerItemsThanPivotIndexController = start - 1;
-        for (int largerItemsThanPivotIndexController = start; largerItemsThanPivotIndexController < end; largerItemsThanPivotIndexController++) {
-            if(vetor.encontrarElemento(largerItemsThanPivotIndexController).getAvailableDeaths() <= pivot) {
-                smallerItemsThanPivotIndexController++;
-                exchangeElements(vetor, smallerItemsThanPivotIndexController, largerItemsThanPivotIndexController);
+    public static int particionaCasos(Vetor<DataBase> vetor, int inicio, int fim) {
+        int pivot = vetor.encontrarElemento(fim).getAvailableConfirmed();
+        int indexMenor = inicio - 1;
+        for (int indexMaior = inicio; indexMaior < fim; indexMaior++) {
+            if (vetor.encontrarElemento(indexMaior).getAvailableConfirmed() < pivot) {
+                indexMenor++;
+                trocaNumeros(vetor, indexMenor, indexMaior);
             }
         }
-        exchangeElements(vetor, smallerItemsThanPivotIndexController + 1, end);
-        return smallerItemsThanPivotIndexController + 1;
+        trocaNumeros(vetor, indexMenor + 1, fim);
+        return indexMenor + 1;
     }
 
-    public static int particionaCasos(Vetor<DataBase> vetor, int start, int end) {
-        int pivot = vetor.encontrarElemento(end).getAvailableConfirmed();
-        int smallerItemsThanPivotIndexController = start - 1;
-        for (int largerItemsThanPivotIndexController = start; largerItemsThanPivotIndexController < end; largerItemsThanPivotIndexController++) {
-            if(vetor.encontrarElemento(largerItemsThanPivotIndexController).getAvailableConfirmed() <= pivot) {
-                smallerItemsThanPivotIndexController++;
-                exchangeElements(vetor, smallerItemsThanPivotIndexController, largerItemsThanPivotIndexController);
+    public static int particionaObitos(Vetor<DataBase> vetor, int inicio, int fim) {
+        int pivot = vetor.encontrarElemento(fim).getAvailableDeaths();
+        int indexMenor = inicio - 1;
+        for (int indexMaior = inicio; indexMaior < fim; indexMaior++) {
+            if (vetor.encontrarElemento(indexMaior).getAvailableDeaths() < pivot) {
+                indexMenor++;
+                trocaNumeros(vetor, indexMenor, indexMaior);
             }
         }
-        exchangeElements(vetor, smallerItemsThanPivotIndexController + 1, end);
-        return smallerItemsThanPivotIndexController + 1;
+        trocaNumeros(vetor, indexMenor + 1, fim);
+        return indexMenor + 1;
     }
 
-    public static int particionaCidades(Vetor<DataBase> vetor, int start, int end) {
+    public static int particionaCidades(Vetor<DataBase> vetor, int inicio, int fim) {
 
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
 
-        String pivot = vetor.encontrarElemento(end).getCity();
-        int smallerItemsThanPivotIndexController = start - 1;
-        for (int largerItemsThanPivotIndexController = start; largerItemsThanPivotIndexController < end; largerItemsThanPivotIndexController++) {
-            if(collator.compare(vetor.encontrarElemento(largerItemsThanPivotIndexController).getCity(), pivot) <= 0) {
-                smallerItemsThanPivotIndexController++;
-                exchangeElements(vetor, smallerItemsThanPivotIndexController, largerItemsThanPivotIndexController);
+        String pivot = vetor.encontrarElemento(fim).getCity();
+        int indexMenor = inicio - 1;
+        for (int indexMaior = inicio; indexMaior < fim; indexMaior++) {
+            if (collator.compare(vetor.encontrarElemento(indexMaior).getCity(), pivot) <= 0) {
+                indexMenor++;
+                trocaNumeros(vetor, indexMenor, indexMaior);
             }
         }
-        exchangeElements(vetor, smallerItemsThanPivotIndexController + 1, end);
-        return smallerItemsThanPivotIndexController + 1;
+        trocaNumeros(vetor, indexMenor + 1, fim);
+        return indexMenor + 1;
     }
 
-    public static void exchangeElements(Vetor<DataBase> vetor, int source, int destination) {
-        DataBase itemHoldedFromSource = vetor.encontrarElemento(source);
-        vetor.inserirElemento(vetor.encontrarElemento(destination), source);
-        vetor.inserirElemento(itemHoldedFromSource, destination);
+    public static void trocaNumeros(Vetor<DataBase> vetor, int origem, int destino) {
+        DataBase auxDaOrigem = vetor.encontrarElemento(origem);
+        vetor.inserirElemento(vetor.encontrarElemento(destino), origem);
+        vetor.inserirElemento(auxDaOrigem, destino);
     }
 
-    public static boolean hasMoreElements(int start, int end) {
-        return start < end;
-    }
 }

@@ -71,10 +71,11 @@ public class SelectionSort {
             for (int j = proximoATestar; j < vetor.getTamanho(); j++) {
 
                 boolean test;
-                if (classificacao == SelectionSort.CRESCENTE)
+                if (classificacao == SelectionSort.CRESCENTE) {
                     test = collator.compare(vetor.encontrarElemento(j).getCity(), vetor.encontrarElemento(indexMenorNumero).getCity()) < 0;
-                else
+                } else {
                     test = collator.compare(vetor.encontrarElemento(j).getCity(), vetor.encontrarElemento(indexMenorNumero).getCity()) > 0;
+                }
 
                 if (test) {
                     indexMenorNumero = j;

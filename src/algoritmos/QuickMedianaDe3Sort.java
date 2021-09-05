@@ -7,196 +7,197 @@ import java.text.Collator;
 
 public class QuickMedianaDe3Sort {
 
-    public static final int OBITOS = 0;
-    public static final int CASOS = 1;
+    public static final int CASOS = 0;
+    public static final int OBITOS = 1;
     public static final int CIDADES = 2;
 
-    public static void sort(Vetor<DataBase> vetor, int start, int end, int type) {
-        if(hasMoreElements(start, end)) {
+    public static void quickMedianaDe3Sort(Vetor<DataBase> vetor, int inicio, int fim, int indicador) {
+        if (inicio < fim) {
             int pivotIndex = 0;
-            switch (type) {
-                case OBITOS:
-                    int pivot3Index = findPivotObitosIndex(vetor, start, end);
-                    exchangeElements(vetor, pivot3Index, end);
-                    pivotIndex = particionaObitos(vetor, start, end);
-                    break;
+            switch (indicador) {
                 case CASOS:
-                    pivot3Index = findPivotCasosIndex(vetor, start, end);
-                    exchangeElements(vetor, pivot3Index, end);
-                    pivotIndex = particionaCasos(vetor, start, end);
+                    int pivot3Index = buscarPivotCasosIndex(vetor, inicio, fim);
+                    trocaNumeros(vetor, pivot3Index, fim);
+                    pivotIndex = particionaCasos(vetor, inicio, fim);
+                    break;
+                case OBITOS:
+                    pivot3Index = buscarPivotObitosIndex(vetor, inicio, fim);
+                    trocaNumeros(vetor, pivot3Index, fim);
+                    pivotIndex = particionaObitos(vetor, inicio, fim);
                     break;
                 case CIDADES:
-                    pivot3Index = findPivotCidadesIndex(vetor, start, end);
-                    exchangeElements(vetor, pivot3Index, end);
-                    pivotIndex = particionaCidades(vetor, start, end);
+                    pivot3Index = buscarPivotCidadesIndex(vetor, inicio, fim);
+                    trocaNumeros(vetor, pivot3Index, fim);
+                    pivotIndex = particionaCidades(vetor, inicio, fim);
                     break;
             }
-            sort(vetor, start, pivotIndex - 1, type);
-            sort(vetor, pivotIndex + 1, end, type);
+            quickMedianaDe3Sort(vetor, inicio, pivotIndex - 1, indicador);
+            quickMedianaDe3Sort(vetor, pivotIndex + 1, fim, indicador);
         }
     }
 
-    public static int particionaObitos(Vetor<DataBase> vetor, int start, int end) {
-        DataBase pivot = vetor.encontrarElemento(end);
-        int smallerItemsThanPivotIndexController = start - 1;
-        for (int largerItemsThanPivotIndexController = start; largerItemsThanPivotIndexController < end; largerItemsThanPivotIndexController++) {
-            if(vetor.encontrarElemento(largerItemsThanPivotIndexController).getAvailableConfirmed() <= pivot.getAvailableConfirmed()) {
-                smallerItemsThanPivotIndexController++;
-                exchangeElements(vetor, smallerItemsThanPivotIndexController, largerItemsThanPivotIndexController);
+    public static int particionaCasos(Vetor<DataBase> vetor, int inicio, int fim) {
+        DataBase pivot = vetor.encontrarElemento(fim);
+        int indexNumerosAbaixoDoPivot = inicio - 1;
+        for (int indexNumerosMaioresDoPivot = inicio; indexNumerosMaioresDoPivot < fim; indexNumerosMaioresDoPivot++) {
+            if (vetor.encontrarElemento(indexNumerosMaioresDoPivot).getAvailableConfirmed() <= pivot.getAvailableConfirmed()) {
+                indexNumerosAbaixoDoPivot++;
+                trocaNumeros(vetor, indexNumerosAbaixoDoPivot, indexNumerosMaioresDoPivot);
             }
         }
-        exchangeElements(vetor, smallerItemsThanPivotIndexController + 1, end);
-        return smallerItemsThanPivotIndexController + 1;
+        trocaNumeros(vetor, indexNumerosAbaixoDoPivot + 1, fim);
+        return indexNumerosAbaixoDoPivot + 1;
     }
 
-    public static int particionaCasos(Vetor<DataBase> vetor, int start, int end) {
-        DataBase pivot = vetor.encontrarElemento(end);
-        int smallerItemsThanPivotIndexController = start - 1;
-        for (int largerItemsThanPivotIndexController = start; largerItemsThanPivotIndexController < end; largerItemsThanPivotIndexController++) {
-            if(vetor.encontrarElemento(largerItemsThanPivotIndexController).getAvailableConfirmed() <= pivot.getAvailableConfirmed()) {
-                smallerItemsThanPivotIndexController++;
-                exchangeElements(vetor, smallerItemsThanPivotIndexController, largerItemsThanPivotIndexController);
+    public static int particionaObitos(Vetor<DataBase> vetor, int inicio, int fim) {
+        DataBase pivot = vetor.encontrarElemento(fim);
+        int indexNumerosAbaixoDoPivot = inicio - 1;
+        for (int indexNumerosMaioresDoPivot = inicio; indexNumerosMaioresDoPivot < fim; indexNumerosMaioresDoPivot++) {
+            if (vetor.encontrarElemento(indexNumerosMaioresDoPivot).getAvailableConfirmed() <= pivot.getAvailableConfirmed()) {
+                indexNumerosAbaixoDoPivot++;
+                trocaNumeros(vetor, indexNumerosAbaixoDoPivot, indexNumerosMaioresDoPivot);
             }
         }
-        exchangeElements(vetor, smallerItemsThanPivotIndexController + 1, end);
-        return smallerItemsThanPivotIndexController + 1;
+        trocaNumeros(vetor, indexNumerosAbaixoDoPivot + 1, fim);
+        return indexNumerosAbaixoDoPivot + 1;
     }
 
-    public static int particionaCidades(Vetor<DataBase> vetor, int start, int end) {
+    public static int particionaCidades(Vetor<DataBase> vetor, int inicio, int fim) {
 
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
 
-        DataBase pivot = vetor.encontrarElemento(end);
-        int smallerItemsThanPivotIndexController = start - 1;
-        for (int largerItemsThanPivotIndexController = start; largerItemsThanPivotIndexController < end; largerItemsThanPivotIndexController++) {
-            if(collator.compare(vetor.encontrarElemento(largerItemsThanPivotIndexController).getCity(), pivot.getCity()) <= 0) {
-                smallerItemsThanPivotIndexController++;
-                exchangeElements(vetor, smallerItemsThanPivotIndexController, largerItemsThanPivotIndexController);
+        DataBase pivot = vetor.encontrarElemento(fim);
+        int indexNumerosAbaixoDoPivot = inicio - 1;
+        for (int indexNumerosMaioresDoPivot = inicio; indexNumerosMaioresDoPivot < fim; indexNumerosMaioresDoPivot++) {
+            if (collator.compare(vetor.encontrarElemento(indexNumerosMaioresDoPivot).getCity(), pivot.getCity()) <= 0) {
+                indexNumerosAbaixoDoPivot++;
+                trocaNumeros(vetor, indexNumerosAbaixoDoPivot, indexNumerosMaioresDoPivot);
             }
         }
-        exchangeElements(vetor, smallerItemsThanPivotIndexController + 1, end);
-        return smallerItemsThanPivotIndexController + 1;
+        trocaNumeros(vetor, indexNumerosAbaixoDoPivot + 1, fim);
+        return indexNumerosAbaixoDoPivot + 1;
     }
 
+    public static int buscarPivotCasosIndex(Vetor<DataBase> vetor, int inicioIndex, int fimIndex) {
+        int meioIndex;
+        if (fimIndex % 2 == 0) {
+            meioIndex = (fimIndex / 2) - 1;
+        } else {
+            meioIndex = fimIndex / 2;
+        }
 
-    public static void exchangeElements(Vetor<DataBase> vetor, int source, int destination) {
-        DataBase itemHoldedFromSource = vetor.encontrarElemento(source);
-        vetor.inserirElemento(vetor.encontrarElemento(destination), source);
-        vetor.inserirElemento(itemHoldedFromSource, destination);
-    }
+        int inicio = vetor.encontrarElemento(inicioIndex).getAvailableConfirmed();
+        int fim = vetor.encontrarElemento(fimIndex).getAvailableConfirmed();
+        int meio = vetor.encontrarElemento(meioIndex).getAvailableConfirmed();
+        int pivotIndex;
 
-    public static int findPivotObitosIndex(Vetor<DataBase> vetor, int startIndex, int endIndex) {
-
-        int middleIndex = 0;
-        if (endIndex % 2 == 0) middleIndex = (endIndex / 2) - 1;
-        else middleIndex  = endIndex / 2;
-
-        int start = vetor.encontrarElemento(startIndex).getAvailableConfirmed();
-        int end = vetor.encontrarElemento(endIndex).getAvailableConfirmed();
-        int middle = vetor.encontrarElemento(middleIndex).getAvailableConfirmed();
-
-        int pivotIndex = 0;
-
-        if (start > end) {
-            if (start > middle) {
-                if (end > middle) {
-                    pivotIndex = endIndex;
+        if (inicio > fim) {
+            if (inicio > meio) {
+                if (fim > meio) {
+                    pivotIndex = fimIndex;
                 } else {
-                    pivotIndex = middleIndex;
+                    pivotIndex = meioIndex;
                 }
             } else {
-                pivotIndex = startIndex;
+                pivotIndex = inicioIndex;
             }
         } else {
-            if(end > middle) {
-                if(start > middle) {
-                    pivotIndex = startIndex;
-                } else{
-                    pivotIndex = middleIndex;
+            if (fim > meio) {
+                if (inicio > meio) {
+                    pivotIndex = inicioIndex;
+                } else {
+                    pivotIndex = meioIndex;
                 }
             } else {
-                pivotIndex = endIndex;
+                pivotIndex = fimIndex;
             }
         }
         return pivotIndex;
     }
 
-    public static int findPivotCasosIndex(Vetor<DataBase> vetor, int startIndex, int endIndex) {
+    public static int buscarPivotObitosIndex(Vetor<DataBase> vetor, int inicioIndex, int fimIndex) {
 
-        int middleIndex = 0;
-        if (endIndex % 2 == 0) middleIndex = (endIndex / 2) - 1;
-        else middleIndex  = endIndex / 2;
+        int meioIndex;
+        if (fimIndex % 2 == 0) {
+            meioIndex = (fimIndex / 2) - 1;
+        } else {
+            meioIndex = fimIndex / 2;
+        }
 
-        int start = vetor.encontrarElemento(startIndex).getAvailableConfirmed();
-        int end = vetor.encontrarElemento(endIndex).getAvailableConfirmed();
-        int middle = vetor.encontrarElemento(middleIndex).getAvailableConfirmed();
-        int pivotIndex = 0;
+        int inicio = vetor.encontrarElemento(inicioIndex).getAvailableConfirmed();
+        int fim = vetor.encontrarElemento(fimIndex).getAvailableConfirmed();
+        int meio = vetor.encontrarElemento(meioIndex).getAvailableConfirmed();
 
-        if (start > end) {
-            if (start > middle) {
-                if (end > middle) {
-                    pivotIndex = endIndex;
+        int pivotIndex;
+
+        if (inicio > fim) {
+            if (inicio > meio) {
+                if (fim > meio) {
+                    pivotIndex = fimIndex;
                 } else {
-                    pivotIndex = middleIndex;
+                    pivotIndex = meioIndex;
                 }
             } else {
-                pivotIndex = startIndex;
+                pivotIndex = inicioIndex;
             }
         } else {
-            if(end > middle) {
-                if(start > middle) {
-                    pivotIndex = startIndex;
-                } else{
-                    pivotIndex = middleIndex;
+            if (fim > meio) {
+                if (inicio > meio) {
+                    pivotIndex = inicioIndex;
+                } else {
+                    pivotIndex = meioIndex;
                 }
             } else {
-                pivotIndex = endIndex;
+                pivotIndex = fimIndex;
             }
         }
         return pivotIndex;
     }
 
-    public static int findPivotCidadesIndex(Vetor<DataBase> vetor, int startIndex, int endIndex) {
-
+    public static int buscarPivotCidadesIndex(Vetor<DataBase> vetor, int inicioIndex, int fimIndex) {
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
 
-        int middleIndex = 0;
-        if (endIndex % 2 == 0) middleIndex = (endIndex / 2) - 1;
-        else middleIndex  = endIndex / 2;
+        int meioIndex;
+        if (fimIndex % 2 == 0) {
+            meioIndex = (fimIndex / 2) - 1;
+        } else {
+            meioIndex = fimIndex / 2;
+        }
 
-        String start = vetor.encontrarElemento(startIndex).getCity();
-        String end = vetor.encontrarElemento(endIndex).getCity();
-        String middle = vetor.encontrarElemento(middleIndex).getCity();
-        int pivotIndex = 0;
+        String inicio = vetor.encontrarElemento(inicioIndex).getCity();
+        String fim = vetor.encontrarElemento(fimIndex).getCity();
+        String meio = vetor.encontrarElemento(meioIndex).getCity();
+        int pivotIndex;
 
-        if (collator.compare(start, end) > 0) {
-            if (collator.compare(start, middle) > 0) {
-                if (collator.compare(end, middle) > 0) {
-                    pivotIndex = endIndex;
+        if (collator.compare(inicio, fim) > 0) {
+            if (collator.compare(inicio, meio) > 0) {
+                if (collator.compare(fim, meio) > 0) {
+                    pivotIndex = fimIndex;
                 } else {
-                    pivotIndex = middleIndex;
+                    pivotIndex = meioIndex;
                 }
             } else {
-                pivotIndex = startIndex;
+                pivotIndex = inicioIndex;
             }
         } else {
-            if(collator.compare(end, middle) > 0) {
-                if(collator.compare(start, middle) > 0) {
-                    pivotIndex = startIndex;
-                } else{
-                    pivotIndex = middleIndex;
+            if (collator.compare(fim, meio) > 0) {
+                if (collator.compare(inicio, meio) > 0) {
+                    pivotIndex = inicioIndex;
+                } else {
+                    pivotIndex = meioIndex;
                 }
             } else {
-                pivotIndex = endIndex;
+                pivotIndex = fimIndex;
             }
         }
         return pivotIndex;
     }
 
-    public static boolean hasMoreElements(int start, int end) {
-        return start < end;
+    public static void trocaNumeros(Vetor<DataBase> vetor, int origem, int destino) {
+        DataBase aux = vetor.encontrarElemento(origem);
+        vetor.inserirElemento(vetor.encontrarElemento(destino), origem);
+        vetor.inserirElemento(aux, destino);
     }
-
 }

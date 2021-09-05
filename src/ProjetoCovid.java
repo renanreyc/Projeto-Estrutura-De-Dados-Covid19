@@ -88,14 +88,14 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        dados = CountingSort.ordenarPorObitos(dados);
+        dados = CountingSort.ordenarPorObitosConfirmados(dados);
         timer.setTemporaryFinalTime();
         timer.setCountingTimeObitos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/countingsort-melhor-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        dados = CountingSort.ordenarPorCasos(dados);
+        dados = CountingSort.ordenarPorCasosConfirmados(dados);
         timer.setTemporaryFinalTime();
         timer.setCountingTimeCasos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/countingsort-melhor-casosconfirmados.csv", PRIMEIRA_LINHA);
@@ -106,14 +106,14 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        dados = CountingSort.ordenarPorObitos(dados);
+        dados = CountingSort.ordenarPorObitosConfirmados(dados);
         timer.setTemporaryFinalTime();
         timer.setCountingTimeObitos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/countingsort-pior-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        dados = CountingSort.ordenarPorCasos(dados);
+        dados = CountingSort.ordenarPorCasosConfirmados(dados);
         timer.setTemporaryFinalTime();
         timer.setCountingTimeCasos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/countingsort-pior-casosconfirmados.csv", PRIMEIRA_LINHA);
@@ -124,14 +124,14 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        dados = CountingSort.ordenarPorObitos(dados);
+        dados = CountingSort.ordenarPorObitosConfirmados(dados);
         timer.setTemporaryFinalTime();
         timer.setCountingTimeObitos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/countingsort-medio-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        dados = CountingSort.ordenarPorCasos(dados);
+        dados = CountingSort.ordenarPorCasosConfirmados(dados);
         timer.setTemporaryFinalTime();
         timer.setCountingTimeCasos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/countingsort-medio-casosconfirmados.csv", PRIMEIRA_LINHA);
@@ -232,21 +232,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.OBITOS);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeObitos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-melhor-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.CASOS);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeCasos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-melhor-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.CIDADES);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeCidades(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-melhor-cidades.csv", PRIMEIRA_LINHA);
@@ -257,21 +257,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.OBITOS);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeObitos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-pior-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.CASOS);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeCasos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-pior-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.CIDADES);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeCidades(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-pior-cidades.csv", PRIMEIRA_LINHA);
@@ -282,21 +282,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.OBITOS);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeObitos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-medio-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.CASOS);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeCasos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-medio-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        MergeSort.sort(dados, 0, dados.getTamanho() - 1, MergeSort.CIDADES);
+        MergeSort.mergeSort(dados, 0, dados.getTamanho() - 1, MergeSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setMergeTimeCidades(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDataBase + "/mergesort-medio-cidades.csv", PRIMEIRA_LINHA);
@@ -396,21 +396,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.OBITOS);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeObitos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-melhor-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.CASOS);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeCasos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-melhor-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.CIDADES);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeCidades(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-melhor-cidades.csv", PRIMEIRA_LINHA);
@@ -421,21 +421,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.OBITOS);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeObitos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-pior-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.CASOS);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeCasos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-pior-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.CIDADES);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeCidades(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-pior-cidades.csv", PRIMEIRA_LINHA);
@@ -446,21 +446,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.OBITOS);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeObitos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-medio-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.CASOS);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeCasos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-medio-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickSort.sort(dados, 0, dados.getTamanho() - 1, QuickSort.CIDADES);
+        QuickSort.quickSort(dados, 0, dados.getTamanho() - 1, QuickSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setQuickTimeCidades(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quicksort-medio-cidades.csv", PRIMEIRA_LINHA);
@@ -478,21 +478,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.OBITOS);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeObitos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-melhor-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CASOS);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeCasos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-melhor-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CIDADES);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeCidades(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-melhor-cidades.csv", PRIMEIRA_LINHA);
@@ -503,21 +503,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.OBITOS);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeObitos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-pior-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CASOS);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeCasos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-pior-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CIDADES);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeCidades(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-pior-cidades.csv", PRIMEIRA_LINHA);
@@ -528,21 +528,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.OBITOS);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeObitos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-medio-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CASOS);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeCasos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-medio-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        QuickMedianaDe3Sort.sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CIDADES);
+        QuickMedianaDe3Sort.quickMedianaDe3Sort(dados, 0, dados.getTamanho() - 1, QuickMedianaDe3Sort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setQUickMedTimeCidades(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/quick3sort-medio-cidades.csv", PRIMEIRA_LINHA);
@@ -561,21 +561,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.OBITOS);
+        HeapSort.heapSort(dados, HeapSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeObitos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-melhor-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.CASOS);
+        HeapSort.heapSort(dados, HeapSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeCasos(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-melhor-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_MELHORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.CIDADES);
+        HeapSort.heapSort(dados, HeapSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeCidades(Timer.MELHOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-melhor-cidades.csv", PRIMEIRA_LINHA);
@@ -586,21 +586,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_OBITOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.OBITOS);
+        HeapSort.heapSort(dados, HeapSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeObitos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-pior-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CONFIRMADOS_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.CASOS);
+        HeapSort.heapSort(dados, HeapSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeCasos(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-pior-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_CIDADES_PIORCASO.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.CIDADES);
+        HeapSort.heapSort(dados, HeapSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeCidades(Timer.PIOR, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-pior-cidades.csv", PRIMEIRA_LINHA);
@@ -611,21 +611,21 @@ public class ProjetoCovid {
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.OBITOS);
+        HeapSort.heapSort(dados, HeapSort.OBITOS);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeObitos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-medio-obitos.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.CASOS);
+        HeapSort.heapSort(dados, HeapSort.CASOS);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeCasos(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-medio-casosconfirmados.csv", PRIMEIRA_LINHA);
 
         dados = CSVReader.lerDados(PATH_DATA.replace("{0}", pathDadosBrutos));
         timer.setTemporaryInitialTime();
-        HeapSort.sort(dados, HeapSort.CIDADES);
+        HeapSort.heapSort(dados, HeapSort.CIDADES);
         timer.setTemporaryFinalTime();
         timer.setHeapTimeCidades(Timer.MEDIO, timer.getTemporaryFinalTime());
         CSVWriter.writerFile(dados, pathDadosFinais + "/heapsort-medio-cidades.csv", PRIMEIRA_LINHA);

@@ -7,27 +7,27 @@ import java.text.Collator;
 
 public class InsertionSort {
 
-    public static void ordenarPorObitos(Vetor<DataBase> vetor) {
-        for(int unsortedElementIndex = 1; unsortedElementIndex < vetor.getTamanho(); unsortedElementIndex++) {
-            DataBase unsortedElement = vetor.encontrarElemento(unsortedElementIndex);
-            int currentSortedElementIndex  = unsortedElementIndex - 1;
-            while (currentSortedElementIndex >= 0 && vetor.encontrarElemento(currentSortedElementIndex).getAvailableDeaths() > unsortedElement.getAvailableDeaths()) {
-                vetor.inserirElemento(vetor.encontrarElemento(currentSortedElementIndex), currentSortedElementIndex + 1);
-                currentSortedElementIndex--;
+    public static void ordenarPorCasos(Vetor<DataBase> vetor) {
+        for (int i = 1; i < vetor.getTamanho(); i++) {
+            DataBase LinhaParaOrdenar = vetor.encontrarElemento(i);
+            int j = i - 1;
+            while (j >= 0 && vetor.encontrarElemento(j).getAvailableConfirmed() > LinhaParaOrdenar.getAvailableConfirmed()) {
+                vetor.inserirElemento(vetor.encontrarElemento(j), j + 1);
+                j--;
             }
-            vetor.inserirElemento(unsortedElement, currentSortedElementIndex + 1);
+            vetor.inserirElemento(LinhaParaOrdenar, j + 1);
         }
     }
 
-    public static void ordenarPorCasos(Vetor<DataBase> vetor) {
-        for(int unsortedElementIndex = 1; unsortedElementIndex < vetor.getTamanho(); unsortedElementIndex++){
-            DataBase unsortedElement = vetor.encontrarElemento(unsortedElementIndex);
-            int currentSortedElementIndex  = unsortedElementIndex - 1;
-            while (currentSortedElementIndex >= 0 && vetor.encontrarElemento(currentSortedElementIndex).getAvailableConfirmed() > unsortedElement.getAvailableConfirmed()) {
-                vetor.inserirElemento(vetor.encontrarElemento(currentSortedElementIndex), currentSortedElementIndex + 1);
-                currentSortedElementIndex--;
+    public static void ordenarPorObitos(Vetor<DataBase> vetor) {
+        for (int i = 1; i < vetor.getTamanho(); i++) {
+            DataBase unsortedElement = vetor.encontrarElemento(i);
+            int j = i - 1;
+            while (j >= 0 && vetor.encontrarElemento(j).getAvailableDeaths() > unsortedElement.getAvailableDeaths()) {
+                vetor.inserirElemento(vetor.encontrarElemento(j), j + 1);
+                j--;
             }
-            vetor.inserirElemento(unsortedElement, currentSortedElementIndex + 1);
+            vetor.inserirElemento(unsortedElement, j + 1);
         }
     }
 
@@ -36,15 +36,15 @@ public class InsertionSort {
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
 
-        for(int unsortedElementIndex = 1; unsortedElementIndex < vetor.getTamanho(); unsortedElementIndex++) {
-            DataBase unsortedElement = vetor.encontrarElemento(unsortedElementIndex);
-            int currentSortedElementIndex  = unsortedElementIndex - 1;
-            while (currentSortedElementIndex >= 0 &&
-                    (collator.compare(vetor.encontrarElemento(currentSortedElementIndex).getCity(), unsortedElement.getCity()) > 0)) {
-                vetor.inserirElemento(vetor.encontrarElemento(currentSortedElementIndex), currentSortedElementIndex + 1);
-                currentSortedElementIndex--;
+        for (int i = 1; i < vetor.getTamanho(); i++) {
+            DataBase unsortedElement = vetor.encontrarElemento(i);
+            int j = i - 1;
+            while (j >= 0 &&
+                    (collator.compare(vetor.encontrarElemento(j).getCity(), unsortedElement.getCity()) > 0)) {
+                vetor.inserirElemento(vetor.encontrarElemento(j), j + 1);
+                j--;
             }
-            vetor.inserirElemento(unsortedElement, currentSortedElementIndex + 1);
+            vetor.inserirElemento(unsortedElement, j + 1);
         }
     }
 }
