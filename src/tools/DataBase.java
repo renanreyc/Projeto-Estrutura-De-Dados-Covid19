@@ -19,22 +19,22 @@ public class DataBase {
     private String isLast;
     private String isRepeated;
 
-    private final int yearWeekId = 0;
-    private final int dateId = 1;
-    private final int orderForPlaceId = 2;
-    private final int stateId = 3;
-    private final int cityId = 4;
-    private final int ibgeCodeId = 5;
-    private final int placeTypeId = 6;
-    private final int availableConfirmedId = 7;
-    private final int availableConfirmedPer100KId = 8;
-    private final int newConfirmedId = 9;
-    private final int availableDeathsId = 10;
-    private final int newDeathsId = 11;
-    private final int lastAvailableDeathRateId = 12;
-    private final int estimatedPopulationId = 13;
-    private final int isLastId = 14;
-    private final int isRepeatedId = 15;
+    private final byte yearWeekId = 0;
+    private final byte dateId = 1;
+    private final byte orderForPlaceId = 2;
+    private final byte stateId = 3;
+    private final byte cityId = 4;
+    private final byte ibgeCodeId = 5;
+    private final byte placeTypeId = 6;
+    private final byte availableConfirmedId = 7;
+    private final byte availableConfirmedPer100KId = 8;
+    private final byte newConfirmedId = 9;
+    private final byte availableDeathsId = 10;
+    private final byte newDeathsId = 11;
+    private final byte lastAvailableDeathRateId = 12;
+    private final byte estimatedPopulationId = 13;
+    private final byte isLastId = 14;
+    private final byte isRepeatedId = 15;
 
     public DataBase() {}
     public DataBase(String CVSLine) {
@@ -65,7 +65,7 @@ public class DataBase {
     }
 
     private int convertToInt(String text){
-        if (text == ""){
+        if (text.equals("")){
             return  0;
         }else {
             return Integer.parseInt(text);
@@ -73,7 +73,7 @@ public class DataBase {
     }
 
     private double convertToDouble(String text){
-        if (text == ""){
+        if (text.equals("")){
             return  0;
         }else {
             return Double.parseDouble(text);

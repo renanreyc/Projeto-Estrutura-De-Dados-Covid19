@@ -1,7 +1,7 @@
 package csv;
 
 import tools.DataBase;
-import tools.Vector;
+import tools.Vetor;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,10 +9,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CSVReader {
-    public static Vector<DataBase> lerDados(String caminho) {
+    public static Vetor<DataBase> lerDados(String caminho) {
         String linha = "";
         boolean isFirstLine = true;
-        Vector<DataBase> data = new Vector<DataBase>(1);
+        Vetor<DataBase> data = new Vetor<DataBase>(1);
         try {
             FileReader fileReader = new FileReader(caminho);
             BufferedReader reader = new BufferedReader(fileReader);
@@ -21,7 +21,7 @@ public class CSVReader {
                     isFirstLine = false;
                     continue;
                 }
-                data.add(new DataBase(linha));
+                data.adicionarElemento(new DataBase(linha));
             }
             reader.close();
             fileReader.close();

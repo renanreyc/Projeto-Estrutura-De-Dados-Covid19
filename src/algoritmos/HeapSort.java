@@ -1,7 +1,7 @@
 package algoritmos;
 
 import tools.DataBase;
-import tools.Vector;
+import tools.Vetor;
 
 import java.text.Collator;
 
@@ -12,97 +12,97 @@ public class HeapSort {
     public static final int CIDADES = 2;
     private static int heapSize;
 
-    public static void sort(Vector<DataBase> vector, int type) {
-        buildMaxHeap(vector, type);
-        for (int i = vector.size() - 1; i >= 0; i--) {
+    public static void sort(Vetor<DataBase> vetor, int type) {
+        buildMaxHeap(vetor, type);
+        for (int i = vetor.getTamanho() - 1; i >= 0; i--) {
             HeapSort.heapSize--;
-            exchangeElements(vector, 0, i);
-            maxHeapify(vector, 0, type);
+            exchangeElements(vetor, 0, i);
+            maxHeapify(vetor, 0, type);
         }
     }
 
-    private static void buildMaxHeap(Vector<DataBase> vector, int type) {
+    private static void buildMaxHeap(Vetor<DataBase> vetor, int type) {
         switch (type) {
             case OBITOS:
-                buildMaxHeapDeaths(vector);
+                buildMaxHeapDeaths(vetor);
                 break;
             case CASOS:
-                buildMaxHeapConfirmeds(vector);
+                buildMaxHeapConfirmeds(vetor);
                 break;
             case CIDADES:
-                buildMaxHeapCitys(vector);
+                buildMaxHeapCitys(vetor);
                 break;
         }
     }
 
-    private static void buildMaxHeapDeaths(Vector<DataBase> vector) {
-        HeapSort.heapSize = vector.size() - 1;
-        for (int i = (vector.size() - 1) / 2; i >= 0; i--) {
-            maxHeapifyDeaths(vector, i);
+    private static void buildMaxHeapDeaths(Vetor<DataBase> vetor) {
+        HeapSort.heapSize = vetor.getTamanho() - 1;
+        for (int i = (vetor.getTamanho() - 1) / 2; i >= 0; i--) {
+            maxHeapifyDeaths(vetor, i);
         }
     }
 
-    private static void buildMaxHeapConfirmeds(Vector<DataBase> vector) {
-        HeapSort.heapSize = vector.size() - 1;
-        for (int i = (vector.size() - 1) / 2; i >= 0; i--) {
-            maxHeapifyConfirmeds(vector, i);
+    private static void buildMaxHeapConfirmeds(Vetor<DataBase> vetor) {
+        HeapSort.heapSize = vetor.getTamanho() - 1;
+        for (int i = (vetor.getTamanho() - 1) / 2; i >= 0; i--) {
+            maxHeapifyConfirmeds(vetor, i);
         }
     }
 
-    private static void buildMaxHeapCitys(Vector<DataBase> vector) {
-        HeapSort.heapSize = vector.size() - 1;
-        for (int i = (vector.size() - 1) / 2; i >= 0; i--) {
-            maxHeapifyCitys(vector, i);
+    private static void buildMaxHeapCitys(Vetor<DataBase> vetor) {
+        HeapSort.heapSize = vetor.getTamanho() - 1;
+        for (int i = (vetor.getTamanho() - 1) / 2; i >= 0; i--) {
+            maxHeapifyCitys(vetor, i);
         }
     }
 
-    private static void maxHeapify(Vector<DataBase> vector, int index, int type) {
+    private static void maxHeapify(Vetor<DataBase> vetor, int index, int type) {
         switch (type) {
             case OBITOS:
-                maxHeapifyDeaths(vector, index);
+                maxHeapifyDeaths(vetor, index);
                 break;
             case CASOS:
-                maxHeapifyConfirmeds(vector, index);
+                maxHeapifyConfirmeds(vetor, index);
                 break;
             case CIDADES:
-                maxHeapifyCitys(vector, index);
+                maxHeapifyCitys(vetor, index);
                 break;
         }
     }
 
-    private static void maxHeapifyDeaths(Vector<DataBase> vector, int index) {
+    private static void maxHeapifyDeaths(Vetor<DataBase> vetor, int index) {
         int bigger;
         int left = getLeftIndex(index);
         int right = getRightIndex(index);
 
-        if(left <= HeapSort.heapSize && vector.findWithIndex(left).getAvailableDeaths() > vector.findWithIndex(index).getAvailableDeaths()) bigger = left;
+        if(left <= HeapSort.heapSize && vetor.encontrarElemento(left).getAvailableDeaths() > vetor.encontrarElemento(index).getAvailableDeaths()) bigger = left;
         else bigger = index;
 
-        if(right <= HeapSort.heapSize && vector.findWithIndex(right).getAvailableDeaths() > vector.findWithIndex(bigger).getAvailableDeaths()) bigger = right;
+        if(right <= HeapSort.heapSize && vetor.encontrarElemento(right).getAvailableDeaths() > vetor.encontrarElemento(bigger).getAvailableDeaths()) bigger = right;
 
         if(bigger != index) {
-            exchangeElements(vector, index, bigger);
-            maxHeapifyDeaths(vector, bigger);
+            exchangeElements(vetor, index, bigger);
+            maxHeapifyDeaths(vetor, bigger);
         }
     }
 
-    private static void maxHeapifyConfirmeds(Vector<DataBase> vector, int index) {
+    private static void maxHeapifyConfirmeds(Vetor<DataBase> vetor, int index) {
         int bigger;
         int left = getLeftIndex(index);
         int right = getRightIndex(index);
 
-        if(left <= HeapSort.heapSize && vector.findWithIndex(left).getAvailableConfirmed() > vector.findWithIndex(index).getAvailableConfirmed()) bigger = left;
+        if(left <= HeapSort.heapSize && vetor.encontrarElemento(left).getAvailableConfirmed() > vetor.encontrarElemento(index).getAvailableConfirmed()) bigger = left;
         else bigger = index;
 
-        if(right <= HeapSort.heapSize && vector.findWithIndex(right).getAvailableConfirmed() > vector.findWithIndex(bigger).getAvailableConfirmed()) bigger = right;
+        if(right <= HeapSort.heapSize && vetor.encontrarElemento(right).getAvailableConfirmed() > vetor.encontrarElemento(bigger).getAvailableConfirmed()) bigger = right;
 
         if(bigger != index) {
-            exchangeElements(vector, index, bigger);
-            maxHeapifyConfirmeds(vector, bigger);
+            exchangeElements(vetor, index, bigger);
+            maxHeapifyConfirmeds(vetor, bigger);
         }
     }
 
-    private static void maxHeapifyCitys(Vector<DataBase> vector, int index) {
+    private static void maxHeapifyCitys(Vetor<DataBase> vetor, int index) {
         int bigger;
         int left = getLeftIndex(index);
         int right = getRightIndex(index);
@@ -110,21 +110,21 @@ public class HeapSort {
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
 
-        if(left <= HeapSort.heapSize && collator.compare(vector.findWithIndex(left).getCity(), vector.findWithIndex(index).getCity()) > 0) bigger = left;
+        if(left <= HeapSort.heapSize && collator.compare(vetor.encontrarElemento(left).getCity(), vetor.encontrarElemento(index).getCity()) > 0) bigger = left;
         else bigger = index;
 
-        if(right <= HeapSort.heapSize && collator.compare(vector.findWithIndex(right).getCity(), vector.findWithIndex(bigger).getCity()) > 0) bigger = right;
+        if(right <= HeapSort.heapSize && collator.compare(vetor.encontrarElemento(right).getCity(), vetor.encontrarElemento(bigger).getCity()) > 0) bigger = right;
 
         if(bigger != index) {
-            exchangeElements(vector, index, bigger);
-            maxHeapifyCitys(vector, bigger);
+            exchangeElements(vetor, index, bigger);
+            maxHeapifyCitys(vetor, bigger);
         }
     }
 
-    public static void exchangeElements(Vector<DataBase> vector, int source, int destination) {
-        DataBase itemHoldedFromSource = vector.findWithIndex(source);
-        vector.insert(vector.findWithIndex(destination), source);
-        vector.insert(itemHoldedFromSource, destination);
+    public static void exchangeElements(Vetor<DataBase> vetor, int source, int destination) {
+        DataBase itemHoldedFromSource = vetor.encontrarElemento(source);
+        vetor.inserirElemento(vetor.encontrarElemento(destination), source);
+        vetor.inserirElemento(itemHoldedFromSource, destination);
     }
 
     private static int getLeftIndex(int index) {

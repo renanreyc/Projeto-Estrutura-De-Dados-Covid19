@@ -1,7 +1,7 @@
 package algoritmos;
 
 import tools.DataBase;
-import tools.Vector;
+import tools.Vetor;
 
 import java.text.Collator;
 
@@ -12,97 +12,97 @@ public class MergeSort {
     public static final int CIDADES = 2;
     private static final String MAX_VALUE = "ZZZZZ";
 
-    public static void sort(Vector<DataBase> vector, int start, int end, int type) {
+    public static void sort(Vetor<DataBase> vetor, int start, int end, int type) {
         if(hasMoreElements(start, end)) {
             int middle = (int) Math.floor((start + end)/ 2);
-            sort(vector, start, middle, type);
-            sort(vector, middle + 1, end,  type);
+            sort(vetor, start, middle, type);
+            sort(vetor, middle + 1, end,  type);
 
             switch (type) {
                 case OBITOS:
-                    intercalaObitos(vector, start, middle, end);
+                    intercalaObitos(vetor, start, middle, end);
                     break;
                 case CASOS:
-                    intercalaCasos(vector, start, middle, end);
+                    intercalaCasos(vetor, start, middle, end);
                     break;
                 case CIDADES:
-                    intercalaCidades(vector, start, middle, end);
+                    intercalaCidades(vetor, start, middle, end);
                     break;
             }
         }
     }
 
-    public static void intercalaObitos(Vector<DataBase> vector, int start, int middle, int end) {
+    public static void intercalaObitos(Vetor<DataBase> vetor, int start, int middle, int end) {
         int sizeStartToMiddle = middle - start + 1;
         int sizeMiddleToEnd = end - middle;
 
-        Vector<DataBase> vectorStartToMid = new Vector<DataBase>(sizeStartToMiddle + 1);
-        Vector<DataBase>  vectorMidToEnd = new Vector<DataBase>(sizeMiddleToEnd + 1);
+        Vetor<DataBase> vetorStartToMid = new Vetor<DataBase>(sizeStartToMiddle + 1);
+        Vetor<DataBase> vetorMidToEnd = new Vetor<DataBase>(sizeMiddleToEnd + 1);
 
         for (int currentIndex = 0; currentIndex < sizeStartToMiddle; currentIndex++) {
-            vectorStartToMid.insert(vector.findWithIndex(start + currentIndex), currentIndex);
+            vetorStartToMid.inserirElemento(vetor.encontrarElemento(start + currentIndex), currentIndex);
         }
 
         for(int currentIndex = 0; currentIndex < sizeMiddleToEnd; currentIndex++) {
-            vectorMidToEnd.insert(vector.findWithIndex(middle + currentIndex + 1), currentIndex);
+            vetorMidToEnd.inserirElemento(vetor.encontrarElemento(middle + currentIndex + 1), currentIndex);
         }
 
-        vectorStartToMid.insert( new DataBase(), sizeStartToMiddle);
-        vectorStartToMid.findWithIndex(sizeStartToMiddle).setAvailableDeaths(Integer.MAX_VALUE);
+        vetorStartToMid.inserirElemento( new DataBase(), sizeStartToMiddle);
+        vetorStartToMid.encontrarElemento(sizeStartToMiddle).setAvailableDeaths(Integer.MAX_VALUE);
 
-        vectorMidToEnd.insert( new DataBase(), sizeMiddleToEnd);
-        vectorMidToEnd.findWithIndex(sizeMiddleToEnd).setAvailableDeaths(Integer.MAX_VALUE);
+        vetorMidToEnd.inserirElemento( new DataBase(), sizeMiddleToEnd);
+        vetorMidToEnd.encontrarElemento(sizeMiddleToEnd).setAvailableDeaths(Integer.MAX_VALUE);
 
         int currentStartToMiddleIndex = 0;
         int currentMiddleToEndIndex = 0;
 
         for (int currentVectorIndex = start; currentVectorIndex <= end; currentVectorIndex++) {
-            if(vectorStartToMid.findWithIndex(currentStartToMiddleIndex).getAvailableDeaths() <= vectorMidToEnd.findWithIndex(currentMiddleToEndIndex).getAvailableDeaths()) {
-                vector.insert(vectorStartToMid.findWithIndex(currentStartToMiddleIndex), currentVectorIndex);
+            if(vetorStartToMid.encontrarElemento(currentStartToMiddleIndex).getAvailableDeaths() <= vetorMidToEnd.encontrarElemento(currentMiddleToEndIndex).getAvailableDeaths()) {
+                vetor.inserirElemento(vetorStartToMid.encontrarElemento(currentStartToMiddleIndex), currentVectorIndex);
                 currentStartToMiddleIndex++;
             } else {
-                vector.insert(vectorMidToEnd.findWithIndex(currentMiddleToEndIndex), currentVectorIndex);
+                vetor.inserirElemento(vetorMidToEnd.encontrarElemento(currentMiddleToEndIndex), currentVectorIndex);
                 currentMiddleToEndIndex++;
             }
         }
     }
 
-    public static void intercalaCasos(Vector<DataBase> vector, int start, int middle, int end) {
+    public static void intercalaCasos(Vetor<DataBase> vetor, int start, int middle, int end) {
         int sizeStartToMiddle = middle - start + 1;
         int sizeMiddleToEnd = end - middle;
 
-        Vector<DataBase> vectorStartToMid = new Vector<DataBase>(sizeStartToMiddle + 1);
-        Vector<DataBase>  vectorMidToEnd = new Vector<DataBase>(sizeMiddleToEnd + 1);
+        Vetor<DataBase> vetorStartToMid = new Vetor<DataBase>(sizeStartToMiddle + 1);
+        Vetor<DataBase> vetorMidToEnd = new Vetor<DataBase>(sizeMiddleToEnd + 1);
 
         for (int currentIndex = 0; currentIndex < sizeStartToMiddle; currentIndex++) {
-            vectorStartToMid.insert(vector.findWithIndex(start + currentIndex), currentIndex);
+            vetorStartToMid.inserirElemento(vetor.encontrarElemento(start + currentIndex), currentIndex);
         }
 
         for(int currentIndex = 0; currentIndex < sizeMiddleToEnd; currentIndex++) {
-            vectorMidToEnd.insert(vector.findWithIndex(middle + currentIndex + 1), currentIndex);
+            vetorMidToEnd.inserirElemento(vetor.encontrarElemento(middle + currentIndex + 1), currentIndex);
         }
 
-        vectorStartToMid.insert( new DataBase(), sizeStartToMiddle);
-        vectorStartToMid.findWithIndex(sizeStartToMiddle).setAvailableConfirmed(Integer.MAX_VALUE);
+        vetorStartToMid.inserirElemento( new DataBase(), sizeStartToMiddle);
+        vetorStartToMid.encontrarElemento(sizeStartToMiddle).setAvailableConfirmed(Integer.MAX_VALUE);
 
-        vectorMidToEnd.insert( new DataBase(), sizeMiddleToEnd);
-        vectorMidToEnd.findWithIndex(sizeMiddleToEnd).setAvailableConfirmed(Integer.MAX_VALUE);
+        vetorMidToEnd.inserirElemento( new DataBase(), sizeMiddleToEnd);
+        vetorMidToEnd.encontrarElemento(sizeMiddleToEnd).setAvailableConfirmed(Integer.MAX_VALUE);
 
         int currentStartToMiddleIndex = 0;
         int currentMiddleToEndIndex = 0;
 
         for (int currentVectorIndex = start; currentVectorIndex <= end; currentVectorIndex++) {
-            if(vectorStartToMid.findWithIndex(currentStartToMiddleIndex).getAvailableConfirmed() <= vectorMidToEnd.findWithIndex(currentMiddleToEndIndex).getAvailableConfirmed()) {
-                vector.insert(vectorStartToMid.findWithIndex(currentStartToMiddleIndex), currentVectorIndex);
+            if(vetorStartToMid.encontrarElemento(currentStartToMiddleIndex).getAvailableConfirmed() <= vetorMidToEnd.encontrarElemento(currentMiddleToEndIndex).getAvailableConfirmed()) {
+                vetor.inserirElemento(vetorStartToMid.encontrarElemento(currentStartToMiddleIndex), currentVectorIndex);
                 currentStartToMiddleIndex++;
             } else {
-                vector.insert(vectorMidToEnd.findWithIndex(currentMiddleToEndIndex), currentVectorIndex);
+                vetor.inserirElemento(vetorMidToEnd.encontrarElemento(currentMiddleToEndIndex), currentVectorIndex);
                 currentMiddleToEndIndex++;
             }
         }
     }
 
-    public static void intercalaCidades(Vector<DataBase> vector, int start, int middle, int end) {
+    public static void intercalaCidades(Vetor<DataBase> vetor, int start, int middle, int end) {
 
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
@@ -110,32 +110,32 @@ public class MergeSort {
         int sizeStartToMiddle = middle - start + 1;
         int sizeMiddleToEnd = end - middle;
 
-        Vector<DataBase> vectorStartToMid = new Vector<DataBase>(sizeStartToMiddle + 1);
-        Vector<DataBase>  vectorMidToEnd = new Vector<DataBase>(sizeMiddleToEnd + 1);
+        Vetor<DataBase> vetorStartToMid = new Vetor<DataBase>(sizeStartToMiddle + 1);
+        Vetor<DataBase> vetorMidToEnd = new Vetor<DataBase>(sizeMiddleToEnd + 1);
 
         for (int currentIndex = 0; currentIndex < sizeStartToMiddle; currentIndex++) {
-            vectorStartToMid.insert(vector.findWithIndex(start + currentIndex), currentIndex);
+            vetorStartToMid.inserirElemento(vetor.encontrarElemento(start + currentIndex), currentIndex);
         }
 
         for(int currentIndex = 0; currentIndex < sizeMiddleToEnd; currentIndex++) {
-            vectorMidToEnd.insert(vector.findWithIndex(middle + currentIndex + 1), currentIndex);
+            vetorMidToEnd.inserirElemento(vetor.encontrarElemento(middle + currentIndex + 1), currentIndex);
         }
 
-        vectorStartToMid.insert( new DataBase(), sizeStartToMiddle);
-        vectorStartToMid.findWithIndex(sizeStartToMiddle).setCity(MAX_VALUE);
+        vetorStartToMid.inserirElemento( new DataBase(), sizeStartToMiddle);
+        vetorStartToMid.encontrarElemento(sizeStartToMiddle).setCity(MAX_VALUE);
 
-        vectorMidToEnd.insert( new DataBase(), sizeMiddleToEnd);
-        vectorMidToEnd.findWithIndex(sizeMiddleToEnd).setCity(MAX_VALUE);
+        vetorMidToEnd.inserirElemento( new DataBase(), sizeMiddleToEnd);
+        vetorMidToEnd.encontrarElemento(sizeMiddleToEnd).setCity(MAX_VALUE);
 
         int currentStartToMiddleIndex = 0;
         int currentMiddleToEndIndex = 0;
 
         for (int currentVectorIndex = start; currentVectorIndex <= end; currentVectorIndex++) {
-            if (collator.compare(vectorStartToMid.findWithIndex(currentStartToMiddleIndex).getCity(), vectorMidToEnd.findWithIndex(currentMiddleToEndIndex).getCity()) < 0) {
-                vector.insert(vectorStartToMid.findWithIndex(currentStartToMiddleIndex), currentVectorIndex);
+            if (collator.compare(vetorStartToMid.encontrarElemento(currentStartToMiddleIndex).getCity(), vetorMidToEnd.encontrarElemento(currentMiddleToEndIndex).getCity()) < 0) {
+                vetor.inserirElemento(vetorStartToMid.encontrarElemento(currentStartToMiddleIndex), currentVectorIndex);
                 currentStartToMiddleIndex++;
             } else  {
-                vector.insert(vectorMidToEnd.findWithIndex(currentMiddleToEndIndex), currentVectorIndex);
+                vetor.inserirElemento(vetorMidToEnd.encontrarElemento(currentMiddleToEndIndex), currentVectorIndex);
                 currentMiddleToEndIndex++;
             }
         }

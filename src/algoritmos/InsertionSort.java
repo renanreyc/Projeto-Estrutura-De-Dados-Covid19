@@ -1,50 +1,50 @@
 package algoritmos;
 
 import tools.DataBase;
-import tools.Vector;
+import tools.Vetor;
 
 import java.text.Collator;
 
 public class InsertionSort {
 
-    public static void ordenarPorObitos(Vector<DataBase> vector) {
-        for(int unsortedElementIndex = 1; unsortedElementIndex < vector.size(); unsortedElementIndex++) {
-            DataBase unsortedElement = vector.findWithIndex(unsortedElementIndex);
+    public static void ordenarPorObitos(Vetor<DataBase> vetor) {
+        for(int unsortedElementIndex = 1; unsortedElementIndex < vetor.getTamanho(); unsortedElementIndex++) {
+            DataBase unsortedElement = vetor.encontrarElemento(unsortedElementIndex);
             int currentSortedElementIndex  = unsortedElementIndex - 1;
-            while (currentSortedElementIndex >= 0 && vector.findWithIndex(currentSortedElementIndex).getAvailableDeaths() > unsortedElement.getAvailableDeaths()) {
-                vector.insert(vector.findWithIndex(currentSortedElementIndex), currentSortedElementIndex + 1);
+            while (currentSortedElementIndex >= 0 && vetor.encontrarElemento(currentSortedElementIndex).getAvailableDeaths() > unsortedElement.getAvailableDeaths()) {
+                vetor.inserirElemento(vetor.encontrarElemento(currentSortedElementIndex), currentSortedElementIndex + 1);
                 currentSortedElementIndex--;
             }
-            vector.insert(unsortedElement, currentSortedElementIndex + 1);
+            vetor.inserirElemento(unsortedElement, currentSortedElementIndex + 1);
         }
     }
 
-    public static void ordenarPorCasos(Vector<DataBase> vector) {
-        for(int unsortedElementIndex=1; unsortedElementIndex < vector.size(); unsortedElementIndex++){
-            DataBase unsortedElement = vector.findWithIndex(unsortedElementIndex);
+    public static void ordenarPorCasos(Vetor<DataBase> vetor) {
+        for(int unsortedElementIndex = 1; unsortedElementIndex < vetor.getTamanho(); unsortedElementIndex++){
+            DataBase unsortedElement = vetor.encontrarElemento(unsortedElementIndex);
             int currentSortedElementIndex  = unsortedElementIndex - 1;
-            while (currentSortedElementIndex >= 0 && vector.findWithIndex(currentSortedElementIndex).getAvailableConfirmed() > unsortedElement.getAvailableConfirmed()) {
-                vector.insert(vector.findWithIndex(currentSortedElementIndex), currentSortedElementIndex + 1);
+            while (currentSortedElementIndex >= 0 && vetor.encontrarElemento(currentSortedElementIndex).getAvailableConfirmed() > unsortedElement.getAvailableConfirmed()) {
+                vetor.inserirElemento(vetor.encontrarElemento(currentSortedElementIndex), currentSortedElementIndex + 1);
                 currentSortedElementIndex--;
             }
-            vector.insert(unsortedElement, currentSortedElementIndex + 1);
+            vetor.inserirElemento(unsortedElement, currentSortedElementIndex + 1);
         }
     }
 
-    public static void ordenarPorNomeDasCidades(Vector<DataBase> vector) {
+    public static void ordenarPorNomeDasCidades(Vetor<DataBase> vetor) {
 
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
 
-        for(int unsortedElementIndex = 1; unsortedElementIndex < vector.size(); unsortedElementIndex++) {
-            DataBase unsortedElement = vector.findWithIndex(unsortedElementIndex);
+        for(int unsortedElementIndex = 1; unsortedElementIndex < vetor.getTamanho(); unsortedElementIndex++) {
+            DataBase unsortedElement = vetor.encontrarElemento(unsortedElementIndex);
             int currentSortedElementIndex  = unsortedElementIndex - 1;
             while (currentSortedElementIndex >= 0 &&
-                    (collator.compare(vector.findWithIndex(currentSortedElementIndex).getCity(), unsortedElement.getCity()) > 0)) {
-                vector.insert(vector.findWithIndex(currentSortedElementIndex), currentSortedElementIndex + 1);
+                    (collator.compare(vetor.encontrarElemento(currentSortedElementIndex).getCity(), unsortedElement.getCity()) > 0)) {
+                vetor.inserirElemento(vetor.encontrarElemento(currentSortedElementIndex), currentSortedElementIndex + 1);
                 currentSortedElementIndex--;
             }
-            vector.insert(unsortedElement, currentSortedElementIndex + 1);
+            vetor.inserirElemento(unsortedElement, currentSortedElementIndex + 1);
         }
     }
 }
