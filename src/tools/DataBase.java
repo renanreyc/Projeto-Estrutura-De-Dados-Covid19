@@ -1,11 +1,11 @@
 package tools;
 
-public class CovidData {
+public class DataBase {
 
     private String yearWeek;
     private String date;
-    private String state;
     private String orderForPlace;
+    private String state;
     private String city;
     private String ibgeCode;
     private String placeType;
@@ -16,8 +16,8 @@ public class CovidData {
     private int newDeaths;
     private double lastAvailableDeathRate;
     private int estimatedPopulation;
-    private boolean isLast;
-    private boolean isRepeated;
+    private String isLast;
+    private String isRepeated;
 
     private final int yearWeekId = 0;
     private final int dateId = 1;
@@ -36,12 +36,12 @@ public class CovidData {
     private final int isLastId = 14;
     private final int isRepeatedId = 15;
 
-    public CovidData() {}
-    public CovidData(String CVSLine) {
-        this.setarAtributos(CVSLine);
+    public DataBase() {}
+    public DataBase(String CVSLine) {
+        this.setAttributos(CVSLine);
     }
 
-    private void setarAtributos(String CSVLine) {
+    private void setAttributos(String CSVLine) {
         String[] columns = separarColunas(CSVLine);
         this.yearWeek = columns[yearWeekId];
         this.date = columns[dateId];
@@ -53,12 +53,15 @@ public class CovidData {
         this.availableConfirmed = convertToInt(columns[availableConfirmedId]);
         this.availableConfirmedPer100K = convertToDouble(columns[availableConfirmedPer100KId]);
         this.newConfirmed = convertToInt(columns[newConfirmedId]);
-        this.availableDeaths = convertToInt(columns[availableDeaths]);
+        this.availableDeaths = convertToInt(columns[availableDeathsId]);
         this.newDeaths = convertToInt(columns[newDeathsId]);
         this.lastAvailableDeathRate = convertToDouble(columns[lastAvailableDeathRateId]);
         this.estimatedPopulation = convertToInt(columns[estimatedPopulationId]);
-        for (int i = 0; i >= columns.length;i++)
-            System.out.println(columns);
+        this.isLast = columns[isLastId];
+        this.isRepeated = columns[isRepeatedId];
+//        //valida columns test
+//        for (int i = 0; i >= columns.length;i++)
+//            System.out.println(columns);
     }
 
     private int convertToInt(String text){
@@ -138,11 +141,11 @@ public class CovidData {
         return estimatedPopulation;
     }
 
-    public boolean isLast() {
+    public String isLast() {
         return isLast;
     }
 
-    public boolean isRepeated() {
+    public String isRepeated() {
         return isRepeated;
     }
 
@@ -160,8 +163,39 @@ public class CovidData {
 
     @Override
     public String toString() {
-        return "CovidBase{" +
-                "" +
-                "}";
+        return "DataBase{" +
+                "yearWeek='" + yearWeek + '\'' +
+                ", date='" + date + '\'' +
+                ", orderForPlace='" + orderForPlace + '\'' +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", ibgeCode='" + ibgeCode + '\'' +
+                ", placeType='" + placeType + '\'' +
+                ", availableConfirmed=" + availableConfirmed +
+                ", availableConfirmedPer100K=" + availableConfirmedPer100K +
+                ", newConfirmed=" + newConfirmed +
+                ", availableDeaths=" + availableDeaths +
+                ", newDeaths=" + newDeaths +
+                ", lastAvailableDeathRate=" + lastAvailableDeathRate +
+                ", estimatedPopulation=" + estimatedPopulation +
+                ", isLast='" + isLast + '\'' +
+                ", isRepeated='" + isRepeated + '\'' +
+                ", yearWeekId=" + yearWeekId +
+                ", dateId=" + dateId +
+                ", orderForPlaceId=" + orderForPlaceId +
+                ", stateId=" + stateId +
+                ", cityId=" + cityId +
+                ", ibgeCodeId=" + ibgeCodeId +
+                ", placeTypeId=" + placeTypeId +
+                ", availableConfirmedId=" + availableConfirmedId +
+                ", availableConfirmedPer100KId=" + availableConfirmedPer100KId +
+                ", newConfirmedId=" + newConfirmedId +
+                ", availableDeathsId=" + availableDeathsId +
+                ", newDeathsId=" + newDeathsId +
+                ", lastAvailableDeathRateId=" + lastAvailableDeathRateId +
+                ", estimatedPopulationId=" + estimatedPopulationId +
+                ", isLastId=" + isLastId +
+                ", isRepeatedId=" + isRepeatedId +
+                '}';
     }
 }

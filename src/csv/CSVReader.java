@@ -1,6 +1,6 @@
 package csv;
 
-import tools.CovidData;
+import tools.DataBase;
 import tools.Vector;
 
 import java.io.BufferedReader;
@@ -9,10 +9,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CSVReader {
-    public static Vector<CovidData> lerDados(String caminho) {
+    public static Vector<DataBase> lerDados(String caminho) {
         String linha = "";
         boolean isFirstLine = true;
-        Vector<CovidData> data = new Vector<CovidData>(1);
+        Vector<DataBase> data = new Vector<DataBase>(1);
         try {
             FileReader fileReader = new FileReader(caminho);
             BufferedReader reader = new BufferedReader(fileReader);
@@ -21,7 +21,7 @@ public class CSVReader {
                     isFirstLine = false;
                     continue;
                 }
-                data.add(new CovidData(linha));
+                data.add(new DataBase(linha));
             }
             reader.close();
             fileReader.close();

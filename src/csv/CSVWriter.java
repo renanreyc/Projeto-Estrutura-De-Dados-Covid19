@@ -1,6 +1,6 @@
 package csv;
 
-import tools.CovidData;
+import tools.DataBase;
 import tools.Vector;
 
 import java.io.BufferedWriter;
@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CSVWriter {
-    public static void escreverDados(Vector<CovidData> dados, String caminhoParaSalvar, String cabecalho) {
+    public static void escreverDados(Vector<DataBase> dados, String caminhoParaSalvar, String cabecalho) {
         try {
             File arquivo = new File(caminhoParaSalvar);
             FileWriter fileWriter = new FileWriter(arquivo);
@@ -27,7 +27,7 @@ public class CSVWriter {
         }
     }
 
-    private static String juntarDadosEFormatar(CovidData data) {
+    private static String juntarDadosEFormatar(DataBase data) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(data.getYearWeek() + ",");
         stringBuilder.append(data.getDate() + ",");

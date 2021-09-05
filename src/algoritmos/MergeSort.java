@@ -1,6 +1,6 @@
 package algoritmos;
 
-import tools.CovidData;
+import tools.DataBase;
 import tools.Vector;
 
 import java.text.Collator;
@@ -10,9 +10,9 @@ public class MergeSort {
     public static final int OBITOS = 0;
     public static final int CASOS = 1;
     public static final int CIDADES = 2;
-    private static final String MAX_VALUE = "ŹŹŹŹŹ";
+    private static final String MAX_VALUE = "ZZZZZ";
 
-    public static void sort(Vector<CovidData> vector, int start, int end, int type) {
+    public static void sort(Vector<DataBase> vector, int start, int end, int type) {
         if(hasMoreElements(start, end)) {
             int middle = (int) Math.floor((start + end)/ 2);
             sort(vector, start, middle, type);
@@ -32,12 +32,12 @@ public class MergeSort {
         }
     }
 
-    public static void intercalaObitos(Vector<CovidData> vector, int start, int middle, int end) {
+    public static void intercalaObitos(Vector<DataBase> vector, int start, int middle, int end) {
         int sizeStartToMiddle = middle - start + 1;
         int sizeMiddleToEnd = end - middle;
 
-        Vector<CovidData> vectorStartToMid = new Vector<CovidData>(sizeStartToMiddle + 1);
-        Vector<CovidData>  vectorMidToEnd = new Vector<CovidData>(sizeMiddleToEnd + 1);
+        Vector<DataBase> vectorStartToMid = new Vector<DataBase>(sizeStartToMiddle + 1);
+        Vector<DataBase>  vectorMidToEnd = new Vector<DataBase>(sizeMiddleToEnd + 1);
 
         for (int currentIndex = 0; currentIndex < sizeStartToMiddle; currentIndex++) {
             vectorStartToMid.insert(vector.findWithIndex(start + currentIndex), currentIndex);
@@ -47,10 +47,10 @@ public class MergeSort {
             vectorMidToEnd.insert(vector.findWithIndex(middle + currentIndex + 1), currentIndex);
         }
 
-        vectorStartToMid.insert( new CovidData(), sizeStartToMiddle);
+        vectorStartToMid.insert( new DataBase(), sizeStartToMiddle);
         vectorStartToMid.findWithIndex(sizeStartToMiddle).setAvailableDeaths(Integer.MAX_VALUE);
 
-        vectorMidToEnd.insert( new CovidData(), sizeMiddleToEnd);
+        vectorMidToEnd.insert( new DataBase(), sizeMiddleToEnd);
         vectorMidToEnd.findWithIndex(sizeMiddleToEnd).setAvailableDeaths(Integer.MAX_VALUE);
 
         int currentStartToMiddleIndex = 0;
@@ -67,12 +67,12 @@ public class MergeSort {
         }
     }
 
-    public static void intercalaCasos(Vector<CovidData> vector, int start, int middle, int end) {
+    public static void intercalaCasos(Vector<DataBase> vector, int start, int middle, int end) {
         int sizeStartToMiddle = middle - start + 1;
         int sizeMiddleToEnd = end - middle;
 
-        Vector<CovidData> vectorStartToMid = new Vector<CovidData>(sizeStartToMiddle + 1);
-        Vector<CovidData>  vectorMidToEnd = new Vector<CovidData>(sizeMiddleToEnd + 1);
+        Vector<DataBase> vectorStartToMid = new Vector<DataBase>(sizeStartToMiddle + 1);
+        Vector<DataBase>  vectorMidToEnd = new Vector<DataBase>(sizeMiddleToEnd + 1);
 
         for (int currentIndex = 0; currentIndex < sizeStartToMiddle; currentIndex++) {
             vectorStartToMid.insert(vector.findWithIndex(start + currentIndex), currentIndex);
@@ -82,10 +82,10 @@ public class MergeSort {
             vectorMidToEnd.insert(vector.findWithIndex(middle + currentIndex + 1), currentIndex);
         }
 
-        vectorStartToMid.insert( new CovidData(), sizeStartToMiddle);
+        vectorStartToMid.insert( new DataBase(), sizeStartToMiddle);
         vectorStartToMid.findWithIndex(sizeStartToMiddle).setAvailableConfirmed(Integer.MAX_VALUE);
 
-        vectorMidToEnd.insert( new CovidData(), sizeMiddleToEnd);
+        vectorMidToEnd.insert( new DataBase(), sizeMiddleToEnd);
         vectorMidToEnd.findWithIndex(sizeMiddleToEnd).setAvailableConfirmed(Integer.MAX_VALUE);
 
         int currentStartToMiddleIndex = 0;
@@ -102,7 +102,7 @@ public class MergeSort {
         }
     }
 
-    public static void intercalaCidades(Vector<CovidData> vector, int start, int middle, int end) {
+    public static void intercalaCidades(Vector<DataBase> vector, int start, int middle, int end) {
 
         Collator collator = Collator.getInstance();
         collator.setStrength(Collator.NO_DECOMPOSITION);
@@ -110,8 +110,8 @@ public class MergeSort {
         int sizeStartToMiddle = middle - start + 1;
         int sizeMiddleToEnd = end - middle;
 
-        Vector<CovidData> vectorStartToMid = new Vector<CovidData>(sizeStartToMiddle + 1);
-        Vector<CovidData>  vectorMidToEnd = new Vector<CovidData>(sizeMiddleToEnd + 1);
+        Vector<DataBase> vectorStartToMid = new Vector<DataBase>(sizeStartToMiddle + 1);
+        Vector<DataBase>  vectorMidToEnd = new Vector<DataBase>(sizeMiddleToEnd + 1);
 
         for (int currentIndex = 0; currentIndex < sizeStartToMiddle; currentIndex++) {
             vectorStartToMid.insert(vector.findWithIndex(start + currentIndex), currentIndex);
@@ -121,10 +121,10 @@ public class MergeSort {
             vectorMidToEnd.insert(vector.findWithIndex(middle + currentIndex + 1), currentIndex);
         }
 
-        vectorStartToMid.insert( new CovidData(), sizeStartToMiddle);
+        vectorStartToMid.insert( new DataBase(), sizeStartToMiddle);
         vectorStartToMid.findWithIndex(sizeStartToMiddle).setCity(MAX_VALUE);
 
-        vectorMidToEnd.insert( new CovidData(), sizeMiddleToEnd);
+        vectorMidToEnd.insert( new DataBase(), sizeMiddleToEnd);
         vectorMidToEnd.findWithIndex(sizeMiddleToEnd).setCity(MAX_VALUE);
 
         int currentStartToMiddleIndex = 0;
