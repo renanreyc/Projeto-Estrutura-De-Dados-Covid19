@@ -20,11 +20,11 @@ sudo apt install openjdk-8-jdk
 ```
     $ git clone https://github.com/renanreyc/Projeto-Estrutura-De-Dados-Covid19.git
 ```
-- Acesse o site do [brasil.io](https://brasil.io/dataset/covid19/caso_full/?search=&epidemiological_week=&date=&order_for_place=&state=&city=&city_ibge_code=&place_type=&last_available_date=&is_last=True&is_repeated=False) para baixar os arquivo do dataset (caso não tenha conta,será necessário se [cadastrar](https://brasil.io/auth/entrar/) na plataforma);
-- Filtre os campos **Dados repetido?** como **False** e **É a última atualização** como **True**;
+- Acesse o site do [brasil.io](https://brasil.io/dataset/covid19/caso_full/?search=&epidemiological_week=&date=&order_for_place=&state=&city=&city_ibge_code=&place_type=&last_available_date=&is_last=True&is_repeated=False) para baixar os arquivo do dataset (caso não tenha conta, será necessário se [cadastrar](https://brasil.io/auth/entrar/) na plataforma);
+- Filtre os campos **"Dados repetido?"** como **False** e **"É a última atualização"** como **True**;
 - Renomeie o arquivo baixado para **data.csv**;
 - Crie duas pastas, uma para o **data.csv** e outra para os novos arquivos que serão criados e **guarde** os seus caminhos;
-- Execute o programa Java e coloque os caminhos quando necessário.
+- **Execute** o programa Java e coloque os caminhos quando necessário.
 
 
 ---
