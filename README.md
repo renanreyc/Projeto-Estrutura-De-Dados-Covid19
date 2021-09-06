@@ -2,10 +2,10 @@
 # Projeto Estrutura De Dados | Covid19
 </h1>
 
-## :shipit:  Sobre
+## :pushpin:  Sobre
 **Estrutura de Dados | Covid19** é um projeto desenvolvido nas cadeiras de Laboratório de Estrutura de Dados e Estrutura de Dados visa colocar em prática em um projeto real os algoritmos de ordenação aprendidos nas duas disciplinas durante o semestre. Entre eles temos: SelectionSort,InsertionSort,MergeSort,QuickSort,QuickSort com mediana de 3 e HeapSort.   
 
-## :shipit:  Tecnologias utilizadas
+## :mag_right:  Tecnologias utilizadas
 O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 - JAVA
