@@ -1,5 +1,5 @@
 <h1 align="center">
-# Projeto Estrutura De Dados | Covid19
+Projeto Estrutura De Dados | Covid19
 </h1>
 
 ## :pushpin:  Sobre
