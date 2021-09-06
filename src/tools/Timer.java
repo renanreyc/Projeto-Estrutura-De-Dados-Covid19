@@ -2,8 +2,8 @@ package tools;
 
 public class Timer {
 
-  private long temporaryInitialTime = 0;
-  private long temporaryFinalTime = 0;
+  private long tempoInicial = 0;
+  private long tempoFinal = 0;
 
   public static final int MELHOR = 0;
   public static final int MEDIO = 1;
@@ -37,11 +37,11 @@ public class Timer {
   public  final long[] heapTimeCidades = new long[3];
 
   public void setTemporaryInitialTime() {
-    temporaryInitialTime = System.currentTimeMillis();
+    tempoInicial = System.currentTimeMillis();
   }
 
   public void setTemporaryFinalTime() {
-    temporaryFinalTime = System.currentTimeMillis() - getTemporaryInitialTime();
+    tempoFinal = System.currentTimeMillis() - getTemporaryInitialTime();
   }
 
   public void setInsertionTimeObitos(int index, long insertionTime) {
@@ -125,11 +125,11 @@ public class Timer {
   }
 
   public  long getTemporaryInitialTime() {
-    return temporaryInitialTime;
+    return tempoInicial;
   }
 
   public long getTemporaryFinalTime() {
-    return temporaryFinalTime;
+    return tempoFinal;
   }
 
   public long getselectionTimeObitos(int index) {
